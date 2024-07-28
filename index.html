@@ -1,978 +1,465 @@
 <html>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Life with Aashi</title>
-  <link rel="icon" type="image/x-icon" href="view/ayushi&abhi.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-  <style>
-
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap');
-
-    :root {
-      --lavender: #E6E6FA;
-      --deep-lavender: #9370DB;
-      --light-lavender: #e9e3e3;
-    }
-
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: black;
-      color: #807d7d;
-      overflow-x: hidden;
-    }
-
-    .navbar {
-      background-color: var(--deep-lavender);
-    }
-
-    .navbar-brand,
-    .nav-link {
-      color: white !important;
-    }
-
-    .navbar-brand {
-      font-family: 'Pacifico', cursive;
-      font-size: 1.5rem;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-      font-family: 'Pacifico', cursive;
-      color: var(--deep-lavender);
-    }
-
-    .btn-custom {
-      border-radius: 50px;
-     
-      background-color: var(--deep-lavender);
-      border: none;
-      color: white;
-      transition: all 0.3s ease;
-    }
-
-    .btn-custom:hover {
-      background-color: #8A2BE2;
-      transform: scale(1.05);
-      color: white;
-    }
-
-    .card {
-      border: none;
-      box-shadow: 0 4px 6px rgba(111, 135, 190, 0.861);
-      transition: all 0.3s ease;
-      background-color: var(--light-lavender);
-
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .footer {
-      background-color: var(--deep-lavender);
-      color: white;
-      padding: 20px 0;
-    }
-
-    #confetti {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-    }
-
-    .modal-content {
-      background-color: var(--light-lavender);
-    }
-
-    .modal-header {
-      background-color: var(--deep-lavender);
-      color: white;
-    }
-
-    .icon-feature {
-      font-size: 3rem;
-      color: var(--deep-lavender);
-      margin-bottom: 1rem;
-    }
-
-    .timeline {
-
-      position: relative;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .timeline::after {
-      content: '';
-      position: absolute;
-      width: 6px;
-      background-color: var(--deep-lavender);
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      margin-left: -3px;
-    }
-
-    .timeline-container {
-      padding: 10px 40px;
-      position: relative;
-      background-color: inherit;
-      width: 50%;
-    }
-
-    .timeline-container::after {
-      content: '';
-      position: absolute;
-      width: 25px;
-      height: 25px;
-      right: -17px;
-      background-color: var(--light-lavender);
-      border: 4px solid var(--deep-lavender);
-      top: 15px;
-      border-radius: 50%;
-      z-index: 1;
-    }
-
-    .left {
-      left: 0;
-    }
-
-    .right {
-      left: 50%;
-    }
-
-    .left::before {
-      content: " ";
-      height: 0;
-      position: absolute;
-      top: 22px;
-      width: 0;
-      z-index: 1;
-      right: 30px;
-      border: medium solid var(--deep-lavender);
-      border-width: 10px 0 10px 10px;
-      border-color: transparent transparent transparent var(--deep-lavender);
-    }
-
-    .right::before {
-      content: " ";
-      height: 0;
-      position: absolute;
-      top: 22px;
-      width: 0;
-      z-index: 1;
-      left: 30px;
-      border: medium solid var(--deep-lavender);
-      border-width: 10px 10px 10px 0;
-      border-color: transparent var(--deep-lavender) transparent transparent;
-    }
-
-    .right::after {
-      left: -16px;
-    }
-
-    .timeline-content {
-      background-color: var(--light-lavender);
-      padding: 20px 30px;
-      /* background-color: white; */
-      position: relative;
-      border-radius: 6px;
-    }
-
-    .parallax {
-      background-attachment: fixed;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      height: 400px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .parallax-text {
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .testimonial {
-      font-style: italic;
-      margin-bottom: 20px;
-    }
-
-    .playlist {
-      background-color: var(--light-lavender);
-      padding: 20px;
-      border-radius: 10px;
-    }
-
-    .playlist-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .playlist-item i {
-      margin-right: 10px;
-    }
-
-    .why-me-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .why-me-icon {
-      font-size: 2rem;
-      color: var(--deep-lavender);
-      margin-right: 15px;
-    }
-
-    .floating {
-      animation-name: floating;
-      animation-duration: 3s;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease-in-out;
-    }
-
-    @keyframes floating {
-      0% {
-        transform: translate(0, 0px);
-      }
-
-      50% {
-        transform: translate(0, 15px);
-      }
-
-      100% {
-        transform: translate(0, -0px);
-      }
-    }
-
-    .heart-trail {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 9998;
-    }
-
-    .doodle {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .music-notes {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9997;
-    }
-
-    .music-note {
-      position: absolute;
-      font-size: 24px;
-      color: var(--deep-lavender);
-      opacity: 0;
-    }
-
-    .surprise-box {
-      width: 200px;
-      height: 200px;
-      background-color: var(--deep-lavender);
-      border-radius: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin: 0 auto;
-    }
-
-    .surprise-box:hover {
-      transform: scale(1.05);
-    }
-
-    .surprise-box i {
-      font-size: 4rem;
-      color: white;
-    }
-
-    /* #whyMeContent {
-      display: none;
-    } */
-
-    @media screen and (max-width: 600px) {
-      .timeline::after {
-        left: 31px;
-      }
-
-      .timeline-container {
-        width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
-      }
-
-      .timeline-container::before {
-        left: 60px;
-        border: medium solid white;
-        border-width: 10px 10px 10px 0;
-        border-color: transparent white transparent transparent;
-      }
-
-      .left::after,
-      .right::after {
-        left: 15px;
-      }
-
-      .right {
-        left: 0%;
-      }
-    }
-
-    .playlist {
-      background-color: var(--light-lavender);
-      color: black;
-      padding: 20px;
-      border-radius: 10px;
-    }
-
-    .playlist-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-
-    .playlist-item i {
-      margin-right: 10px;
-    }
-
-    .why-me-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .why-me-icon {
-      font-size: 2rem;
-      color: var(--deep-lavender);
-      margin-right: 15px;
-    }
-
-    .floating {
-      animation-name: floating;
-      animation-duration: 3s;
-      animation-iteration-count: infinite;
-      animation-timing-function: ease-in-out;
-    }
-
-    @keyframes floating {
-      0% {
-        transform: translate(0, 0px);
-      }
-
-      50% {
-        transform: translate(0, 15px);
-      }
-
-      100% {
-        transform: translate(0, -0px);
-      }
-    }
-
-    .heart-trail {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 9998;
-    }
-
-    .doodle {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .music-notes {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9997;
-    }
-
-    .music-note {
-      position: absolute;
-      font-size: 24px;
-      color: var(--deep-lavender);
-      opacity: 0;
-    }
-
-    #audioPlayer {
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    @media screen and (max-width: 600px) {
-      .timeline::after {
-        left: 31px;
-      }
-
-      .timeline-container {
-        width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
-      }
-
-      .timeline-container::before {
-        left: 60px;
-        border: medium solid white;
-        border-width: 10px 10px 10px 0;
-        border-color: transparent white transparent transparent;
-      }
-
-      .left::after,
-      .right::after {
-        left: 15px;
-      }
-
-      .right {
-        left: 0%;
-      }
-    }
-
-    .date-image {
-      max-width: 70%;
-      height: auto;
-
-
-    }
-
-    #why-you{
- 
-     
-      border: 2px solid var(--deep-lavender);
-      border-radius: 20px;
-    }
-    #the-date{
-      border: 2px solid var(--deep-lavender);
-      border-radius: 20px;
-    }
-    #testimonials{
-      border: 2px solid var(--deep-lavender);
-      border-radius: 20px;
-    }
-  </style>
-</head>
-
-<body>
-
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container justify-content-center">
-      <a class="navbar-brand " href="#home">Life with Aashi <i class="fas fa-heart"></i></a>
-
-    </div>
-  </nav>
-
-  <div id="home" class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-lg-8 text-center">
-        <h1 class="display-4 mb-5 mt-5 ">Aashi, Will You Go On A Ride With Me? <i class="fas fa-question "></i></h1>
-        <p class="lead mb-4 ">I've been gathering the courage to ask you this, and I hope you'll say yes to a wonderful
-          evening ride to  together.</p>
-        <button class="btn btn-custom btn-lg mt-4 mb-5 " onclick="showModal()">Yes, I'd Love To! <i
-            class="fas fa-check"></i></button>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life with Aashi</title>
+    <link rel="icon" type="image/x-icon" href="view/ayushi&abhi.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container justify-content-center">
+        <a class="navbar-brand" href="#home"
+          >Life with Aashi <i class="fas fa-heart"></i
+        ></a>
+      </div>
+    </nav>
+
+    <div id="home" class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h1 class="display-4 mb-5 mt-5">
+            Aashi, Will You Go On A Ride With Me?
+            <i class="fas fa-question"></i>
+          </h1>
+          <p class="lead mb-4">
+            I've been gathering the courage to ask you this, and I hope you'll
+            say yes to a wonderful evening ride with me till our last breath.
+          </p>
+          <button class="btn btn-custom btn-lg mt-4 mb-5" onclick="showModal()">
+            Yes, I'd Love To! <i class="fas fa-check"></i>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- <div >
-    <h2 class="display-4 text-center parallax-text">“Pata hai… Yahaan se bahut door, galat aur sahi ke paar, ek maidan hai, main wahaan milunga tujhe"</h2>
-  </div>
-   -->
-  <div id="why-you" class="container py-5">
-    <h2 class="text-center mb-5">Why You, Aashi? <i class="fas fa-heart"></i></h2>
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <div class="card-body text-center">
-            <i class="fas fa-smile icon-feature floating"></i>
-            <h5 class="card-title">Your Radiant Smile</h5>
+    <div>
+      <h2 class="display-4 text-center parallax-text head-h2">
+        “Pata hai… Yahaan se bahut door, galat aur sahi ke paar, ek maidan hai,
+        main wahaan milunga tujhe"
+      </h2>
+    </div>
+
+    <div id="why-you" class="container py-5">
+      <h2 class="text-center mb-5">
+        Why You, Aashi? <i class="fas fa-heart"></i>
+      </h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-smile icon-feature floating"></i>
+              <h5 class="card-title">Your Radiant Smile</h5>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <div class="card-body text-center">
-            <i class="fas fa-hand-holding-heart icon-feature floating"></i>
-            <h5 class="card-title">Your Kind Heart</h5>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-hand-holding-heart icon-feature floating"></i>
+              <h5 class="card-title">Your Kind Heart</h5>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <div class="card-body text-center">
-            <i class="fas fa-music icon-feature floating"></i>
-            <h5 class="card-title">Similar vibes</h5>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-music icon-feature floating"></i>
+              <h5 class="card-title">Similar vibes</h5>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <div class="card-body text-center">
-            <i class="fas fa-star icon-feature floating"></i>
-            <h5 class="card-title">Your Cuteness</h5>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-star icon-feature floating"></i>
+              <h5 class="card-title">Your Cuteness</h5>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <div class="card-body text-center">
-            <i class="fas fa-laugh icon-feature floating"></i>
-            <h5 class="card-title">Good Humor</h5>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-laugh icon-feature floating"></i>
+              <h5 class="card-title">Good Humor</h5>
+            </div>
           </div>
         </div>
-      </div>
-     
-      <div class="col-md-4 mb-4">
-        <div class="card h-100">
-          <div class="card-body text-center">
-            <i class="fas fa-plus icon-feature floating"></i>
-            <h5 class="card-title">More & More </h5>
+
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-plus icon-feature floating"></i>
+              <h5 class="card-title">More & More</h5>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div id="why-me" class="container py-5">
-    <h2 class="text-center mb-5">Why Me? <i class="fas fa-user-circle"></i></h2>
-    <!-- <div class="surprise-box" onclick="revealWhyMe()">
+    <div id="why-me" class="container py-5">
+      <h2 class="text-center mb-5">
+        Why Me? <i class="fas fa-user-circle"></i>
+      </h2>
+      <!-- <div class="surprise-box" onclick="revealWhyMe()">
       <i class="fas fa-gift"></i>
     </div> -->
-    <div id="whyMeContent" class="mt-4">
+      <div id="whyMeContent" class="mt-4">
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <div class="why-me-item">
+              <i class="fas fa-laugh-beam why-me-icon floating"></i>
+              <div>
+                <h5>Always Take care of You</h5>
+                <p>
+                  I promise to keep you laughing with my quirky jokes and
+                  playful banter. Life's too short not to enjoy a good laugh
+                  together!
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-4">
+            <div class="why-me-item">
+              <i class="fas fa-hands-helping why-me-icon floating"></i>
+              <div>
+                <h5>Supportive Partner</h5>
+                <p>
+                  I'll be your biggest cheerleader, supporting your dreams and
+                  ambitions, including your musical journey. Together, we can
+                  create beautiful harmonies in life!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="why-me-item">
+              <i class="fas fa-utensils why-me-icon floating"></i>
+              <div>
+                <h5>Good in irritating</h5>
+                <p>
+                  I'm committed to always irritating you, But also makes you
+                  smile like this
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="why-me-item">
+              <i class="fas fa-heart why-me-icon floating"></i>
+              <div>
+                <h5>Never Leave You</h5>
+                <p>
+                  In a world full of uncertainties, one thing I want you to be
+                  absolutely sure of is this: I will never leave you.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="the-date" class="container py-5">
+      <h2 class="text-center mb-5">
+        The Perfect First Day <i class="fas fa-heart"></i>
+      </h2>
+      <div class="row align-items-center text-center">
+        <div class="col-md-6 mb-4">
+          <img
+            src="view/aashi&gagan.png"
+            alt="A romantic date scene with a couple enjoying dinner and music"
+            class="date-image"
+          />
+        </div>
+        <div class="col-md-6">
+          <h1>A Day to Remember <i class="fas fa-star"></i></h1>
+          <h4>I've planned a magical life that I hope you'll love:</h4>
+          <ul>
+            <h4>
+              <li>A Long Ride</li>
+            </h4>
+            <h4>
+              <li>A Peacefull Life</li>
+            </h4>
+            <h4>
+              <li>Fall Asleep Looking At You</li>
+            </h4>
+            <h4>
+              <li>Keep Looking At You For Whole Day And Night</li>
+            </h4>
+          </ul>
+          <h4>
+            But most importantly, it's about spending time together, enjoying,
+            and getting to know each other better.
+          </h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="parallax" style="background-image: url('')">
+      <h2 class="display-4 text-center parallax-text">
+        Creating Melodies Together
+      </h2>
+    </div>
+
+    <div id="our-story" class="container py-5">
+      <h2 class="text-center mb-5">
+        Our Story <i class="fas fa-book-open"></i>
+      </h2>
+      <div class="timeline">
+        <div class="timeline-container left">
+          <div class="timeline-content">
+            <h2 class="our-story">
+              First Meeting - <span>7 July 2023</span><i class="fas fa-eye"></i>
+            </h2>
+            <p>
+              The Day When We I Find You Opening My Snaps But Not Starting A
+              Streak.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-container right">
+          <div class="timeline-content">
+            <h2 class="our-story">
+              The Design - <span>3 Jan 2024</span> <i class="fas fa-music"></i>
+            </h2>
+            <p>The Day I Asked To Design My Desktop/Computer Table.</p>
+          </div>
+        </div>
+        <div class="timeline-container left">
+          <div class="timeline-content">
+            <h2 class="our-story">
+              Shared Laughter - <span>5 March 2024</span>
+              <i class="fas fa-laugh"></i>
+            </h2>
+            <p>
+              We started chatting more and shared so much laughter and memes, as
+              you like so much that dark Humor. (hehehe)
+            </p>
+          </div>
+        </div>
+        <div class="timeline-container right">
+          <div class="timeline-content">
+            <h2 class="our-story">
+              First Video Call - <span>14 March 2024</span>
+              <i class="fas fa-laugh"></i>
+            </h2>
+            <p>
+              The Day When You Called Me On Snapchat, Firstly I Think It's Just
+              A Audio Call, But Then You Turned On The Camera. At That Day When
+              We Slept Together On Video Call And I Saw Your Time Sleeping.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-container left">
+          <div class="timeline-content">
+            <h2 class="our-story">
+              Watchparty - <span>25 March 2024</span>
+              <i class="fas fa-laugh"></i>
+            </h2>
+            <p>
+              The Day When i Revived My Old Project To Watch American Pie Series
+              With You. Tha i Never Thought I Will Watch With A Girl.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-container right">
+          <div class="timeline-content">
+            <h2 class="our-story">
+              Perposal - <span>3 April 2024</span> <i class="fas fa-heart"></i>
+            </h2>
+            <p>The Day When You Asked This, I Don't Know What to Say,</p>
+          </div>
+        </div>
+     
+        <div class="timeline-container left">
+          <div class="timeline-content">
+            <h2 class="our-story">
+              Fear -<span>24 July 2024</span> <i class="fas fa-heart"></i>
+            </h2>
+            <p>
+              When I Saw Fear Of Losing Me In your Eyes. That I Can't Forget,
+              Who Much You Cried.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="testimonials" class="container py-5">
+      <h2 class="text-center mb-5">
+        What Others Say About Us <i class="fas fa-comments"></i>
+      </h2>
       <div class="row">
         <div class="col-md-6 mb-4">
-          <div class="why-me-item">
-            <i class="fas fa-laugh-beam why-me-icon floating"></i>
-            <div>
-              <h5>Always Take care of You </h5>
-              <p>I promise to keep you laughing with my quirky jokes and playful banter. Life's too short not to enjoy a
-                good laugh together!</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6 mb-4">
-          <div class="why-me-item">
-            <i class="fas fa-hands-helping why-me-icon floating"></i>
-            <div>
-              <h5>Supportive Partner</h5>
-              <p>I'll be your biggest cheerleader, supporting your dreams and ambitions, including your musical journey.
-                Together, we can create beautiful harmonies in life!</p>
+          <div class="card">
+            <div class="card-body">
+              <p class="testimonial">
+                "Tum Dono hi extra ordinary couple ho, kash mujhe bhi koi esa hi
+                milee! (Yeh Madam and inke mood swings)"
+              </p>
+              <footer class="blockquote-footer">Surbhi</footer>
             </div>
           </div>
         </div>
         <div class="col-md-6 mb-4">
-          <div class="why-me-item">
-            <i class="fas fa-utensils why-me-icon floating"></i>
-            <div>
-              <h5>Good in irritating</h5>
-              <p>I’m committed to always irritating you, But also makes you smile like this </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 mb-4">
-          <div class="why-me-item">
-            <i class="fas fa-heart why-me-icon floating"></i>
-            <div>
-              <h5>Never Leave You</h5>
-              <p>In a world full of uncertainties, one thing I want you to be absolutely sure of is this: I will never
-                leave you.</p>
+          <div class="card">
+            <div class="card-body">
+              <p class="testimonial">
+                "Yeh Ghar Prr To Rehta Hi nhi tha, Aashi what have you done to
+                him, abb apne kamre se niklta hi nhi hai. Maine ise kabhi inta
+                khush nhi dekha"
+              </p>
+              <footer class="blockquote-footer">Rohit</footer>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div id="the-date" class="container py-5">
-    <h2 class="text-center mb-5">The Perfect First Date <i class="fas fa-heart"></i></h2>
-    <div class="row align-items-center text-center">
-      <div class="col-md-6 mb-4">
-        <img src="view/ayushi&abhi.png" alt="A romantic date scene with a couple enjoying dinner and music"
-          class="date-image ">
+    <div id="playlist" class="container py-5">
+      <h2 class="text-center mb-5">
+        Our Playlist <i class="fas fa-headphones"></i>
+      </h2>
+      <div class="playlist">
+        <div
+          class="playlist-item"
+          onclick="playSong('music/song1.mp3', 'Ik Vaari Aa')"
+        >
+          <i class="fas fa-play"></i>
+          <span>"Ik Vaari Aa" by Arijit Singh</span>
+        </div>
+        <div
+          class="playlist-item"
+          onclick="playSong('music/song2.mp3', 'Shor')"
+        >
+          <i class="fas fa-play"></i>
+          <span>"Shor" by Talha Anjum</span>
+        </div>
       </div>
-      <div class="col-md-6">
-        <h1>A day to Remember <i class="fas fa-star"></i></h1>
-        <h4>I've planned a magical evening that I hope you'll love:</h4>
-        <ul>
-          <h4>
-            <li></li>
-          </h4>
-          <h4>
-            <li></li>
-          </h4>
-          <h4>
-            <li></li>
-          </h4>
-          <h4>
-            <li></li>
-          </h4>
-        </ul>
-        <h4>But most importantly, it's about spending time together, enjoying, and getting to know each other better.
-        </h4>
-      </div>
+      <audio id="audioPlayer" controls></audio>
     </div>
-  </div>
 
-  <div class="parallax" style="background-image: url('');">
-    <h2 class="display-4 text-center parallax-text">Creating Melodies Together</h2>
-  </div>
-
-  <div id="our-story" class="container py-5">
-    <h2 class="text-center mb-5">Our Story <i class="fas fa-book-open"></i></h2>
-    <div class="timeline">
-      <div class="timeline-container left">
-        <div class="timeline-content">
-          <h2>First Meeting <i class="fas fa-eye"></i></h2>
-          <p>The day our eyes met and sparked a connection.</p>
+    <footer class="footer text-center">
+      <div class="container">
+        <p>
+          &copy; 2024 Life With Aashi | Created with
+          <i class="fas fa-heart red"></i> for Aashi.
+        </p>
+        <div class="mt-3">
+          <a href=" https://wa.me/7696117994" class="text-white me-3"
+            ><i class="fab fa-whatsapp"></i
+          ></a>
+          <a href=" https://wa.me/9988917994" class="text-white me-3"
+            ><i class="fab fa-whatsapp"></i
+          ></a>
+          <a
+            href="https://www.instagram.com/_gagansuman_"
+            class="text-white me-3"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a
+            href="https://www.instagram.com/gagansuman03"
+            class="text-white me-3"
+            ><i class="fab fa-instagram"></i
+          ></a>
         </div>
       </div>
-      <div class="timeline-container right">
-        <div class="timeline-content">
-          <h2>Javed Ali concert <i class="fas fa-music"></i></h2>
-          <p>Remember the Javed Ali concert? When he sang "Guzarish" and you were in front of me, it felt like something
-            magical. Now, every time I hear that song, it takes me back to that perfect moment with you.</p>
-        </div>
-      </div>
-      <div class="timeline-container left">
-        <div class="timeline-content">
-          <h2>Shared Laughter <i class="fas fa-laugh"></i></h2>
-          <p>We started chatting more and shared so much laughter and memes, as you like so much that dark Humor.
-            (hehehe)</p>
-        </div>
-      </div>
-      <div class="timeline-container right">
-        <div class="timeline-content">
-          <h2>Today <i class="fas fa-heart"></i></h2>
-          <p>Taking a leap of faith and asking you out!</p>
-        </div>
-      </div>
-      <div class="timeline-container left">
-        <div class="timeline-content">
-          <h2>Today <i class="fas fa-heart"></i></h2>
-          <p>Taking a leap of faith and asking you out!</p>
-        </div>
-        </div>
-    </div>
-  </div>
+    </footer>
 
-
-  <div id="testimonials" class="container py-5">
-    <h2 class="text-center mb-5">What Others Say About Us <i class="fas fa-comments"></i></h2>
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <p class="testimonial">"Tum Dono hi extra ordinary couple ho, kash mujhe bhi koi esa hi milee!"
+    <div class="modal fade" id="dateModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              You've Made Me the Happiest Person!
+              <i class="fas fa-grin-hearts"></i>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              I'm thrilled that you've said yes, Aashi! Let's make it official:
             </p>
-            <footer class="blockquote-footer">Surbhi</footer>
+            <form
+              id="dateForm"
+              action="https://formspree.io/f/xdknewja"
+              method="post"
+            >
+              <div class="mb-3">
+                <label for="date" class="form-label"
+                  ><i class="fas fa-calendar-alt"></i> When are you free?</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="date"
+                  name="date"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="time" class="form-label"
+                  ><i class="fas fa-clock"></i> What time works best for
+                  you?</label
+                >
+                <input
+                  type="time"
+                  class="form-control"
+                  id="time"
+                  name="time"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label"
+                  ><i class="fas fa-comment"></i> Any special requests or things
+                  I should know?</label
+                >
+                <textarea
+                  class="form-control"
+                  id="message"
+                  name="message"
+                  rows="3"
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-custom btn-lg w-100">
+                Let's Make It Happen! <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
           </div>
         </div>
       </div>
-      <div class="col-md-6 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <p class="testimonial">"Yeh Ghar Prr To Rehta Hi nhi tha, Aashi what have you done to him, abb apne kamre se niklta hi nhi hai. Maine ise kabhi inta khush nhi dekha"</p>
-            <footer class="blockquote-footer">Aashi </footer>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>
 
+    <canvas id="confetti"></canvas>
 
-
-  <div id="playlist" class="container py-5">
-    <h2 class="text-center mb-5">Our Playlist <i class="fas fa-headphones"></i></h2>
-    <div class="playlist">
-      <div class="playlist-item" onclick="playSong('music/song1.mp3', 'Tum Ho')">
-        <i class="fas fa-play"></i>
-        <span>"Ik Vaari Aa" by Arijit Singh</span>
-      </div>
-      <div class="playlist-item" onclick="playSong('music/song2.mp3', 'Guzarish')">
-        <i class="fas fa-play"></i>
-        <span>"Shor" by Talha Anjum</span>
-      </div>
-
-    </div>
-    <audio id="audioPlayer" controls></audio>
-  </div>
-
-  <footer class="footer text-center">
-    <div class="container">
-      <p>&copy; 2024 Date with Ayushi | Created with <i class="fas fa-heart"></i> for Aashi.</p>
-      <div class="mt-3">
-
-        <a href=" https://wa.me/9870611048" class="text-white me-3"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://www.instagram.com/.abhigoyal?igsh=c2FiNGF4bHcxNnJo" class="text-white me-3"><i
-            class="fab fa-instagram"></i></a>
-      </div>
-    </div>
-  </footer>
-
-  <div class="modal fade" id="dateModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">You've Made Me the Happiest Person! <i class="fas fa-grin-hearts"></i></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>I'm thrilled that you've said yes, Aashi! Let's make it official:</p>
-          <form id="dateForm" action="https://formspree.io/f/xdknewja" method="post">
-            <div class="mb-3">
-              <label for="date" class="form-label"><i class="fas fa-calendar-alt"></i> When are you free?</label>
-              <input type="date" class="form-control" id="date" name="date" required>
-            </div>
-            <div class="mb-3">
-              <label for="time" class="form-label"><i class="fas fa-clock"></i> What time works best for you?</label>
-              <input type="time" class="form-control" id="time" name="time" required>
-            </div>
-            <div class="mb-3">
-              <label for="message" class="form-label"><i class="fas fa-comment"></i> Any special requests or things I
-                should know?</label>
-              <textarea class="form-control" id="message" name="message" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-custom btn-lg w-100">Let's Make It Happen! <i
-                class="fas fa-paper-plane"></i></button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <canvas id="confetti"></canvas>
-
-  <div class="music-notes"></div>
-  <script src="//code.tidio.co/vxbmfcvr3ccycxnmfbgnxoavulrg9ucl.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-  <script>
-
-    const button = document.querySelector('.hover-button');
-    let currentX = 0;
-    let currentY = 0;
-
-    button.addEventListener('mouseover', () => {
-      const buttonWidth = button.clientWidth;
-      const buttonHeight = button.clientHeight;
-
-      // Define the range for movement
-      const moveRange = 300; // Maximum distance to move in pixels
-
-      // Calculate new position within a small range
-      const x = Math.random() * moveRange - moveRange / 9;
-      const y = Math.random() * moveRange - moveRange / 5;
-
-      // Apply the transform property to move the button
-      currentX += x;
-      currentY += y;
-
-      // Ensure the button stays within the viewport bounds
-      const maxX = window.innerWidth - buttonWidth;
-      const maxY = window.innerHeight - buttonHeight;
-
-      currentX = Math.max(0, Math.min(currentX, maxX));
-      currentY = Math.max(0, Math.min(currentY, maxY));
-
-      button.style.transform = `translate(${currentX}px, ${currentY}px)`;
-    });
-
-    function showModal() {
-      new bootstrap.Modal(document.getElementById('dateModal')).show();
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#E6E6FA', '#9370DB', '#8A2BE2']
-      });
-    }
-
-    function revealWhyMe() {
-      const whyMeContent = document.getElementById('whyMeContent');
-      const surpriseBox = document.querySelector('.surprise-box');
-
-      surpriseBox.style.transform = 'scale(0)';
-      setTimeout(() => {
-        surpriseBox.style.display = 'none';
-        whyMeContent.style.display = 'block';
-        gsap.from('#whyMeContent .why-me-item', {
-          opacity: 0,
-          y: 50,
-          stagger: 0.2,
-          duration: 1,
-          ease: 'back.out(1.7)'
-        });
-      }, 300);
-
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#E6E6FA', '#9370DB', '#8A2BE2']
-      });
-    }
-
-    // document.getElementById('dateForm').addEventListener('submit', function(e) {
-    //   e.preventDefault();
-    //   const date = document.getElementById('date').value;
-    //   const time = document.getElementById('time').value;
-    //   const message = document.getElementById('message').value;
-
-    //   let responseMessage = `I'm so excited for our date on ${date} at ${time}, Ayushi!`;
-    //   if (message) {
-    //     responseMessage += ` And thank you for letting me know: "${message}". I'll keep that in mind.`;
-    //   }
-    //   responseMessage += " I can't wait to see you and hear you play!";
-
-    //   alert(responseMessage);
-    //   bootstrap.Modal.getInstance(document.getElementById('dateModal')).hide();
-
-    //   // Trigger a bigger confetti celebration
-    //   var end = Date.now() + (5 * 1000);
-    //   var colors = ['#E6E6FA', '#9370DB', '#8A2BE2'];
-
-    //   (function frame() {
-    //     confetti({
-    //       particleCount: 2,
-    //       angle: 60,
-    //       spread: 55,
-    //       origin: { x: 0 },
-    //       colors: colors
-    //     });
-    //     confetti({
-    //       particleCount: 2,
-    //       angle: 120,
-    //       spread: 55,
-    //       origin: { x: 1 },
-    //       colors: colors
-    //     });
-
-    //     if (Date.now() < end) {
-    //       requestAnimationFrame(frame);
-    //     }
-    //   }());
-    // });
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
-
-    // Add parallax effect
-    window.addEventListener('scroll', function () {
-      var parallaxElements = document.getElementsByClassName('parallax');
-      for (var i = 0; i < parallaxElements.length; i++) {
-        var windowScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        var elementOffset = parallaxElements[i].offsetTop;
-        var currentElementOffset = (elementOffset - windowScrollTop);
-        var parallaxDist = currentElementOffset;
-        var parallaxSpeed = 0.5;
-        parallaxElements[i].style.backgroundPositionY = -(parallaxDist * parallaxSpeed) + "px";
-      }
-    });
-
-    // Heart trail effect
-    document.addEventListener('mousemove', function (e) {
-      var heart = document.createElement('div');
-      heart.className = 'fas fa-heart';
-      heart.style.color = '#9370DB';
-      heart.style.position = 'fixed';
-      heart.style.left = e.clientX + 'px';
-      heart.style.top = e.clientY + 'px';
-      heart.style.pointerEvents = 'none';
-      document.querySelector('.heart-trail').appendChild(heart);
-
-      gsap.to(heart, {
-        y: -100,
-        alpha: 0,
-        duration: 2,
-        ease: "power2.out",
-        onComplete: function () {
-          heart.remove();
-        }
-      });
-    });
-
-
-
-    // Music note animation
-    function createMusicNote() {
-      const musicNotes = ['♪', '♫', '♩', '♬', '♭', '♮'];
-      const note = document.createElement('div');
-      note.className = 'music-note';
-      note.textContent = musicNotes[Math.floor(Math.random() * musicNotes.length)];
-      note.style.left = Math.random() * window.innerWidth + 'px';
-      note.style.top = window.innerHeight + 'px';
-      document.querySelector('.music-notes').appendChild(note);
-
-      gsap.to(note, {
-        y: -window.innerHeight,
-        x: "random(-50, 50)",
-        rotation: "random(-90, 90)",
-        opacity: 0,
-        duration: "random(3, 6)",
-        ease: "power1.out",
-        onComplete: () => {
-          note.remove();
-        }
-      });
-    }
-
-    setInterval(createMusicNote, 300);
-
-
-
-    // Playlist functionality
-    function playSong(songSrc, songTitle) {
-      const audioPlayer = document.getElementById('audioPlayer');
-      audioPlayer.src = songSrc;
-      audioPlayer.play();
-
-    }
-  </script>
-</body>
-
+    <div class="music-notes"></div>
+    <script
+      src="//code.tidio.co/vxbmfcvr3ccycxnmfbgnxoavulrg9ucl.js"
+      async
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="assets/main.js"></script>
+  </body>
 </html>
